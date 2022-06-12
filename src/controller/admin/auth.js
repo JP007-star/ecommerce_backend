@@ -1,10 +1,9 @@
-const res = require('express/lib/response')
 const User=require('../../models/user')
 const jwt=require('jsonwebtoken')
 
 exports.signup = (req, res, next) => {
     User.findOne({email: req.body.email})
-    .exec((err,user)=>{
+    .exec((_error,user)=>{
         if(user) return res.status(400).json({
             message: 'Admin already exists'
         })
@@ -23,7 +22,7 @@ exports.signup = (req, res, next) => {
 
     _user.save((error,data)=>{
         if(error) return res.status(400).json({
-            message: err.message
+            message: error.message
         })
         if(data) return res.status(201)
         .json({
@@ -35,9 +34,10 @@ exports.signup = (req, res, next) => {
 
 
 exports.signin=(req,res)=>{
+    console.log(req.body);
     User.findOne({email:req.body.email})
     .exec((error,user)=>{
-         if(error) return res.status(400).json({err:err.message})
+         if(error) return res.status(400).json({err:error.message})
          if(user){
             
                if(user.authenticate(req.body.password) && user.role==='admin'){
@@ -57,16 +57,8 @@ exports.signin=(req,res)=>{
                }
          }
          else{
-            return res.status(400).json({err:err.message})
+            return res.status(400).json({err:error.message})
          }
     })
 }
 
-exports.requireSigin= (req, res,next) => {
-    const token=req.headers.authorization.split(" ")[1];
-   
-    const user=jwt.verify(token,process.env.JWT_SECRET)
-  
-    req.user=user
-    next()
-}
