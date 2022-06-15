@@ -18,6 +18,6 @@ const storage = multer.diskStorage({
 const  upload =multer({storage})
 
 routes.post('/product/create',requireSigin,adminMiddleware,upload.array('productPicture'),addProduct) //upload.single('productPicture')
-//routes.get('/product/getproduct',getProduct)
+routes.get('/product/getproduct',getProduct)
 
 module.exports =routes; 
