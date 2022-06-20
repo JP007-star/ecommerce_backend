@@ -6,7 +6,7 @@ const adminRoutes=require('./routes/admin/auth')
 const categoryRoutes=require('./routes/category')
 const productRoutes=require('./routes/product')
 const cartRoutes=require('./routes/cart')
-
+const path= require('path')
 // initialization
 const app=express()
 const env=require('dotenv')
@@ -41,12 +41,13 @@ mongoose.connect(uri, {
 //         message:req.body
 //     })
 //  })
-
+app.use('/public',express.static(path.join(__dirname, '/uploads')))
 app.use('/api',authRoutes)
 app.use('/api',adminRoutes)
 app.use('/api',categoryRoutes)
 app.use('/api',productRoutes)
 app.use('/api',cartRoutes)
+
 app.listen(process.env.PORT,()=>{
 console.log(`server is running on port ${process.env.PORT}`)
 
