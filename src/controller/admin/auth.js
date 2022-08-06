@@ -1,11 +1,12 @@
 const User=require('../../models/user')
 const jwt=require('jsonwebtoken')
 
+
 exports.signup = (req, res, next) => {
     User.findOne({email: req.body.email})
     .exec((_error,user)=>{
         if(user) return res.status(400).json({
-            message: 'Admin already exists'
+            message: 'User already exists'
         })
     })
 
@@ -24,9 +25,10 @@ exports.signup = (req, res, next) => {
         if(error) return res.status(400).json({
             message: error.message
         })
-        if(data) return res.status(201)
+        if(data) return res.status(200)
         .json({
-            user:data
+            user:data,
+            message:"Admin User created Successfully...!"
         })
     })
 

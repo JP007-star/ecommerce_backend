@@ -7,6 +7,7 @@ const categoryRoutes=require('./routes/category')
 const productRoutes=require('./routes/product')
 const cartRoutes=require('./routes/cart')
 const path= require('path')
+const cors = require('cors');
 // initialization
 const app=express()
 const env=require('dotenv')
@@ -41,6 +42,7 @@ mongoose.connect(uri, {
 //         message:req.body
 //     })
 //  })
+app.use(cors());
 app.use('/public',express.static(path.join(__dirname, '/uploads')))
 app.use('/api',authRoutes)
 app.use('/api',adminRoutes)
