@@ -8,7 +8,7 @@ const router=express.Router()
 
 router.post('/admin/signin',validateSignInRequest,isRequestValidated, signin)
 router.post('/admin/signup',validateSignUpRequest,isRequestValidated,signup)
-router.post('/admin/signout',requireSigin,signout)
+router.post('/admin/signout',signout)
 
 
 
