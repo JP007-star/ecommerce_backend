@@ -44,7 +44,7 @@ mongoose.connect(uri, {
 //     })
 //  })
 app.use(cors());
-app.use('/public',express.static(path.join(__dirname)))
+app.use("/public", express.static(path.join(__dirname, "uploads")));
 app.use('/api',authRoutes)
 app.use('/api',adminRoutes)
 app.use('/api',categoryRoutes)
