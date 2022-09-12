@@ -1,22 +1,22 @@
 const User=require('../../models/user')
 const jwt=require('jsonwebtoken')
+const bcrypt=require('bcrypt')
 
-
-exports.signup = (req, res, next) => {
+exports.signup = async (req, res, next) => {
     User.findOne({email: req.body.email})
-    .exec((_error,user)=>{
+    .exec(async (_error,user)=>{
         if(user) return res.status(400).json({
             message: 'User already exists'
         })
     })
 
     const {firstName,lastName,email,password}= req.body
-
+    const hash_password=await bcrypt.hash(password,10)
     const _user=new User({
         firstName,
         lastName,
         email,
-        password,
+        hash_password,
         username:Math.random().toString(),
         role: 'admin'
     })
