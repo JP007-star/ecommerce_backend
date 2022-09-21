@@ -1,5 +1,5 @@
 const express=require('express');
-const { addProduct, getProduct } = require('../controller/product');
+const { addProduct, getProduct,getProductsBySlug } = require('../controller/product');
 const { requireSigin, adminMiddleware } = require('../middleware');
 const routes = express.Router()
 const  multer=require('multer');
@@ -19,5 +19,6 @@ const  upload =multer({storage})
 
 routes.post('/product/create',requireSigin,adminMiddleware,upload.array('productPicture'),addProduct) //upload.single('productPicture')
 routes.get('/product/getproduct',getProduct)
+routes.get('/products/:slug',getProductsBySlug)
 
 module.exports =routes; 
