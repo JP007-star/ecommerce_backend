@@ -3,7 +3,7 @@ const { default: slugify } = require('slugify');
 const Category = require('../models/category');
 const Product = require('../models/product')
 exports.addProduct = (req, res, next) => {
-    console.log(req.files[0].filename);
+    // console.log(req.files[0].filename);
     const { name, price, description, category, quantity, createdBy } = req.body;
 
     let productPicture = [];
@@ -12,7 +12,7 @@ exports.addProduct = (req, res, next) => {
         productPicture = req.files.map(_file => {
             return { image: _file.filename }
         })
-        console.log(productPicture);
+        // console.log(productPicture);
     }
     const product = new Product({
         name: name,
@@ -24,7 +24,7 @@ exports.addProduct = (req, res, next) => {
         category,
         createdBy: req.user._id
     });
-    console.log(productPicture);
+    // console.log(productPicture);
 
     product.save((error, product) => {
         if (error) { res.status(400).json({ error: error }) }

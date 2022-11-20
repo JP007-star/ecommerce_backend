@@ -5,7 +5,7 @@ function createCategories(categories,parentId=null)  {
     const categoryList=[]
     let category;
     if(parentId==null){
-       category=categories.filter(cat => cat.parentId==undefined)
+       category=categories.filter(cat => cat.parentId==undefined  || cat.parentId == '')
     }
     else{
        category=categories.filter(cat =>cat.parentId==parentId)
