@@ -36,7 +36,7 @@ exports.addProduct = (req, res, next) => {
 
 }
 
-exports.getProduct = (req, res) => {
+exports.getProduct = (req, res) =>  {
     Product.find({})
         .exec((error, product) => {
             if (error) return res.status(400).json({ error: error });
