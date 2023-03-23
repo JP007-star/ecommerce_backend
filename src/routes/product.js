@@ -1,5 +1,5 @@
 const express=require('express');
-const { addProduct, getProduct,getProductsBySlug, getProductDetailsById } = require('../controller/product');
+const { addProduct, getProduct,getProductsBySlug, getProductDetailsById, deleteProductById, getProducts } = require('../controller/product');
 const { requireSigin, adminMiddleware } = require('../middleware');
 const routes = express.Router()
 const  multer=require('multer');
@@ -22,5 +22,7 @@ routes.post('/product/create',requireSigin,adminMiddleware,upload.array('product
 routes.get('/product/getproduct',getProduct)
 routes.get('/products/:slug',getProductsBySlug)
 routes.get('/product/:productId',getProductDetailsById)
+routes.delete( "/product/deleteProductById", requireSigin,adminMiddleware,deleteProductById);
+routes.post("/product/getProducts",requireSigin,adminMiddleware,getProducts);
 
 module.exports =routes; 
